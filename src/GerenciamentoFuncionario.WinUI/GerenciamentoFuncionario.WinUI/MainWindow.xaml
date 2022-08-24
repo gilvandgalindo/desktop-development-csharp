@@ -76,9 +76,17 @@
                 Margin="10"
                 IsChecked="{x:Bind ViewModel.FuncionarioSelecionado.EBebedorCafe, Mode=TwoWay}"
                 />
-            <Button 
+            <!--<Button 
                 IsEnabled="{x:Bind ViewModel.FuncionarioSelecionado.PodeSalvar, Mode=OneWay}"
                 Click="{x:Bind ViewModel.FuncionarioSelecionado.Salvar}"
+                Grid.Row="4" 
+                Content="Save" 
+                Margin="10 10 10 30"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Left" 
+                />-->
+            <Button 
+                Command="{x:Bind ViewModel.FuncionarioSelecionado.ComandoSalvar, Mode=OneWay}"
                 Grid.Row="4" 
                 Content="Save" 
                 Margin="10 10 10 30"

@@ -21,6 +21,11 @@ namespace GerenciamentoFuncionario.WinForms
             lsbFuncionarios.DataSource = _viewModel.Funcionarios;
             lsbFuncionarios.DisplayMember = "NomeCompleto";
 
+            cmbCargos.DataSource = _viewModel.Cargos;
+            cmbCargos.DisplayMember = "NomeCargo";
+            cmbCargos.ValueMember = "Id";
+            cmbCargos.DataBindings.Add("SelectedValue", funcionarioBindingSource, "CargoId");
+
             txtNomeCompleto.DataBindings.Add(
                 "Text", 
                 funcionarioBindingSource, 

@@ -150,6 +150,7 @@
             // 
             this.cmbCargos.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmbCargos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbCargos.FormattingEnabled = true;
             this.cmbCargos.Location = new System.Drawing.Point(27, 168);
             this.cmbCargos.Name = "cmbCargos";

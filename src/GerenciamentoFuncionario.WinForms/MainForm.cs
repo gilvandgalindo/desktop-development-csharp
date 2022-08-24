@@ -15,6 +15,11 @@ namespace GerenciamentoFuncionario.WinForms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            CarregarDados();
+        }
+
+        private void CarregarDados()
+        {
             _viewModel.Carregar();
             funcionarioBindingSource.DataSource = _viewModel.Funcionarios;
 
@@ -24,28 +29,51 @@ namespace GerenciamentoFuncionario.WinForms
             cmbCargos.DataSource = _viewModel.Cargos;
             cmbCargos.DisplayMember = "NomeCargo";
             cmbCargos.ValueMember = "Id";
-            cmbCargos.DataBindings.Add("SelectedValue", funcionarioBindingSource, "CargoId");
 
-            txtNomeCompleto.DataBindings.Add(
-                "Text", 
-                funcionarioBindingSource, 
-                "NomeCompleto", 
-                false, 
-                DataSourceUpdateMode.OnPropertyChanged);
+            var dataEstaoBindingsAtualizados = cmbCargos.DataBindings.Count > 0;
+            if (dataEstaoBindingsAtualizados)
+            {
+                funcionarioBindingSource.ResetBindings(false);
+            }
+            else
+            {
+                cmbCargos.DataBindings.Add("SelectedValue", funcionarioBindingSource, "CargoId");
 
-            dtpDataNascimento.DataBindings.Add(
-                "Value",
-                funcionarioBindingSource,
-                "DataHoraEntrada"
-                );
+                txtNomeCompleto.DataBindings.Add(
+                    "Text",
+                    funcionarioBindingSource,
+                    "NomeCompleto",
+                    false,
+                    DataSourceUpdateMode.OnPropertyChanged);
 
-            chkEBebedorCafe.DataBindings.Add(
-                "Checked",
-                funcionarioBindingSource,
-                "EBebedorCafe"
-                );
+                dtpDataNascimento.DataBindings.Add(
+                    "Value",
+                    funcionarioBindingSource,
+                    "DataHoraEntrada"
+                    );
 
-            btnSalvar.DataBindings.Add("Enabled", funcionarioBindingSource, "PodeSalvar");
+                chkEBebedorCafe.DataBindings.Add(
+                    "Checked",
+                    funcionarioBindingSource,
+                    "EBebedorCafe"
+                    );
+
+                btnSalvar.DataBindings.Add("Enabled", funcionarioBindingSource, "PodeSalvar");
+            }
+        }
+
+        private void btnAtualizar_Click(object sender, EventArgs e)
+        {
+            CarregarDados();
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (funcionarioBindingSource.Current is FuncionarioViewModel funcionarioViewModel
+                && funcionarioViewModel.PodeSalvar)
+            {
+                funcionarioViewModel.Salvar();
+            }
         }
     }
 }

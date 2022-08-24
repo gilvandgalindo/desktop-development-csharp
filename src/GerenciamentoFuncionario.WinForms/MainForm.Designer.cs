@@ -109,6 +109,7 @@
             this.btnAtualizar.TabIndex = 0;
             this.btnAtualizar.Text = "Atualizar";
             this.btnAtualizar.UseVisualStyleBackColor = true;
+            this.btnAtualizar.Click += new System.EventHandler(this.btnAtualizar_Click);
             // 
             // pnlAreaPrincipal
             // 
@@ -135,6 +136,7 @@
             this.btnSalvar.TabIndex = 1;
             this.btnSalvar.Text = "Salvar";
             this.btnSalvar.UseVisualStyleBackColor = true;
+            this.btnSalvar.Click += new System.EventHandler(this.btnSalvar_Click);
             // 
             // chkEBebedorCafe
             // 

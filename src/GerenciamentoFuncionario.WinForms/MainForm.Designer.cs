@@ -28,25 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.pnlCabecalho = new System.Windows.Forms.Panel();
             this.headerControl1 = new GerenciamentoFuncionario.WinForms.Controls.HeaderControl();
             this.pnlNavegacao = new System.Windows.Forms.Panel();
-            this.lsbFuncionarios = new System.Windows.Forms.ListView();
+            this.lsbFuncionarios = new System.Windows.Forms.ListBox();
             this.pnlAtualizar = new System.Windows.Forms.Panel();
             this.btnAtualizar = new System.Windows.Forms.Button();
             this.pnlAreaPrincipal = new System.Windows.Forms.Panel();
             this.btnSalvar = new System.Windows.Forms.Button();
             this.chkEBebedorCafe = new System.Windows.Forms.CheckBox();
             this.cmbCargos = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.dtpDataNascimento = new System.Windows.Forms.DateTimePicker();
             this.txtNomeCompleto = new System.Windows.Forms.TextBox();
             this.lblCargo = new System.Windows.Forms.Label();
             this.lblDataNascimento = new System.Windows.Forms.Label();
             this.lblNomeCompleto = new System.Windows.Forms.Label();
+            this.funcionarioBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.pnlCabecalho.SuspendLayout();
             this.pnlNavegacao.SuspendLayout();
             this.pnlAtualizar.SuspendLayout();
             this.pnlAreaPrincipal.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.funcionarioBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // pnlCabecalho
@@ -80,11 +83,12 @@
             // lsbFuncionarios
             // 
             this.lsbFuncionarios.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsbFuncionarios.FormattingEnabled = true;
+            this.lsbFuncionarios.ItemHeight = 15;
             this.lsbFuncionarios.Location = new System.Drawing.Point(0, 37);
             this.lsbFuncionarios.Name = "lsbFuncionarios";
             this.lsbFuncionarios.Size = new System.Drawing.Size(174, 284);
-            this.lsbFuncionarios.TabIndex = 3;
-            this.lsbFuncionarios.UseCompatibleStateImageBehavior = false;
+            this.lsbFuncionarios.TabIndex = 1;
             // 
             // pnlAtualizar
             // 
@@ -111,7 +115,7 @@
             this.pnlAreaPrincipal.Controls.Add(this.btnSalvar);
             this.pnlAreaPrincipal.Controls.Add(this.chkEBebedorCafe);
             this.pnlAreaPrincipal.Controls.Add(this.cmbCargos);
-            this.pnlAreaPrincipal.Controls.Add(this.dateTimePicker1);
+            this.pnlAreaPrincipal.Controls.Add(this.dtpDataNascimento);
             this.pnlAreaPrincipal.Controls.Add(this.txtNomeCompleto);
             this.pnlAreaPrincipal.Controls.Add(this.lblCargo);
             this.pnlAreaPrincipal.Controls.Add(this.lblDataNascimento);
@@ -125,7 +129,7 @@
             // btnSalvar
             // 
             this.btnSalvar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnSalvar.Location = new System.Drawing.Point(24, 225);
+            this.btnSalvar.Location = new System.Drawing.Point(24, 255);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(75, 23);
             this.btnSalvar.TabIndex = 1;
@@ -152,12 +156,12 @@
             this.cmbCargos.Size = new System.Drawing.Size(569, 23);
             this.cmbCargos.TabIndex = 4;
             // 
-            // dateTimePicker1
+            // dtpDataNascimento
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(26, 103);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(284, 23);
-            this.dateTimePicker1.TabIndex = 3;
+            this.dtpDataNascimento.Location = new System.Drawing.Point(26, 103);
+            this.dtpDataNascimento.Name = "dtpDataNascimento";
+            this.dtpDataNascimento.Size = new System.Drawing.Size(284, 23);
+            this.dtpDataNascimento.TabIndex = 3;
             // 
             // txtNomeCompleto
             // 
@@ -205,11 +209,13 @@
             this.Controls.Add(this.pnlCabecalho);
             this.Name = "MainForm";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.pnlCabecalho.ResumeLayout(false);
             this.pnlNavegacao.ResumeLayout(false);
             this.pnlAtualizar.ResumeLayout(false);
             this.pnlAreaPrincipal.ResumeLayout(false);
             this.pnlAreaPrincipal.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.funcionarioBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -218,18 +224,19 @@
 
         private Panel pnlCabecalho;
         private Panel pnlNavegacao;
-        private ListView lsbFuncionarios;
         private Panel pnlAtualizar;
         private Button btnAtualizar;
         private Panel pnlAreaPrincipal;
         private Button btnSalvar;
         private CheckBox chkEBebedorCafe;
         private ComboBox cmbCargos;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker dtpDataNascimento;
         private TextBox txtNomeCompleto;
         private Label lblCargo;
         private Label lblDataNascimento;
         private Label lblNomeCompleto;
         private Controls.HeaderControl headerControl1;
+        private BindingSource funcionarioBindingSource;
+        private ListBox lsbFuncionarios;
     }
 }

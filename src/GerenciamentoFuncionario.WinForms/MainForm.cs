@@ -21,13 +21,14 @@ namespace GerenciamentoFuncionario.WinForms
         private void CarregarDados()
         {
             _viewModel.Carregar();
+
             funcionarioBindingSource.DataSource = _viewModel.Funcionarios;
 
-            lsbFuncionarios.DataSource = _viewModel.Funcionarios;
+            lsbFuncionarios.DataSource = funcionarioBindingSource;
             lsbFuncionarios.DisplayMember = "NomeCompleto";
 
             cmbCargos.DataSource = _viewModel.Cargos;
-            cmbCargos.DisplayMember = "NomeCargo";
+            cmbCargos.DisplayMember = "CargoNome";
             cmbCargos.ValueMember = "Id";
 
             var dataEstaoBindingsAtualizados = cmbCargos.DataBindings.Count > 0;

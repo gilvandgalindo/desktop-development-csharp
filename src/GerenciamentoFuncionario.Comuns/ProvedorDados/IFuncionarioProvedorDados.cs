@@ -7,8 +7,8 @@ namespace GerenciamentoFuncionario.Comuns.ProvedorDados
     {
         IEnumerable<Funcionario> CarregaFuncionarios();
         Funcionario RecuperaFuncionarioPorId(int id);
-        void SalvaFuncionario(Funcionario funcionario);
         void AtualizaFuncionario(Funcionario funcionario);
         void ExcluiFuncionario(Funcionario funcionario);
+        void SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe);
     }
 }

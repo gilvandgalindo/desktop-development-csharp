@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using GerenciamentoFuncionario.Comuns.Modelos;
 
 namespace GerenciamentoFuncionario.Comuns.ProvedorDados
 {
-    public interface IRepositorioGenericoDados<T> where T : class
+    public interface IRepositorioGenericoDados<TEntidade> : IRepositorioGenericoDadosBase<TEntidade> where TEntidade : EntidadeBase
     {
-        IList<T> RecuperaTodos(params Expression<Func<T, object>>[] propriedadesNavegacao);
-        IList<T> Recupera(Expression<Func<T, bool>> clausulaWhere = null, Func<IQueryable<T>, IOrderedQueryable<T>> ordenarPor = null, string propriedadesNavegacao = "");
-        T RecuperaUnico(Func<T, bool> clausulaWhere, params Expression<Func<T, object>>[] propriedadesNavegacao);
-        void Adicionar(params T[] itens);
-        void Atualizar(params T[] itens);
-        void Remover(params T[] itens);
+
     }
 }

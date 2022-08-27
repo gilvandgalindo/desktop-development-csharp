@@ -92,10 +92,9 @@ namespace GerenciamentoFuncionario.ViewModel
         public void Salvar()
         {
             _funcionarioProvedorDados.SalvaFuncionario(
-                new Funcionario(
-                    _funcionarioModel.NomeCompleto,
-                    _funcionarioModel.CargoId,
-                    _funcionarioModel.EBebedorCafe)
+                _funcionarioModel.NomeCompleto,
+                _funcionarioModel.CargoId,
+                _funcionarioModel.EBebedorCafe
             );
         }
     }

@@ -2,45 +2,53 @@
 using GerenciamentoFuncionario.Comuns.ProvedorDados;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace GerenciamentoFuncionario.AcessoDados
 {
     public class FuncionarioProvedorDados : IFuncionarioProvedorDados
     {
-        private List<Funcionario> Funcionarios { get; set; }
+        private readonly Contexto _contexto;
 
         public FuncionarioProvedorDados()
         {
-            Funcionarios = new List<Funcionario> {
-                new Funcionario("Fulano de Tal", 1, false),
-                new Funcionario("Ciclano de Tal", 2, true),
-                new Funcionario("Beltrano de Tal", 3, true)
-            };
+            _contexto = new Contexto();
         }
 
         public void AtualizaFuncionario(Funcionario funcionario)
         {
-            throw new System.NotImplementedException();
+            _contexto.Funcionarios.ForEach(x =>
+            {
+                if (x.Id.Equals(funcionario.Id))
+                {
+                    x = funcionario;
+                    return;
+                }
+            });
         }
 
         public void ExcluiFuncionario(Funcionario funcionario)
         {
-            throw new System.NotImplementedException();
+            _contexto.Funcionarios.Remove(funcionario);
         }
 
         public Funcionario RecuperaFuncionarioPorId(int id)
         {
-            throw new System.NotImplementedException();
+            return _contexto.Funcionarios.Find(x => x.Id.Equals(id));
         }
 
-        public void SalvaFuncionario(Funcionario funcionario)
+        public void SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
         {
-            Debug.WriteLine($"Funcionário salvo: {funcionario.PrimeiroNome}");
+            var novoFuncionario = new Funcionario(RecuperaUltimoIdFuncionarios(), nomeCompleto, cargoId, eBebedorCafe);
+            _contexto.Funcionarios.Add(novoFuncionario);
+            Debug.WriteLine($"Funcionário salvo: {novoFuncionario.PrimeiroNome}");
         }
 
-        public IEnumerable<Funcionario> CarregaFuncionarios()
-        {
-            return Funcionarios;
-        }
+        public IEnumerable<Funcionario> CarregaFuncionarios() => _contexto.Funcionarios;
+
+        private int TotalFuncionarios() => CarregaFuncionarios().Count();
+
+        private int RecuperaUltimoIdFuncionarios() => CarregaFuncionarios().Last().Id;
+
     }
 }

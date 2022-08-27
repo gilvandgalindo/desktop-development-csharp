@@ -1,6 +1,4 @@
-﻿
-
-namespace GerenciamentoFuncionario.Console
+﻿namespace GerenciamentoFuncionario.Console
 {
     class Program
     {

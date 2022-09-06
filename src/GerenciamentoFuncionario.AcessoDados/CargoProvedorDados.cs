@@ -10,12 +10,7 @@ namespace GerenciamentoFuncionario.AcessoDados
 
         public CargoProvedorDados()
         {
-            Cargos = new List<Cargo> {
-                new Cargo(1, "Desenvolvedor"),
-                new Cargo(2, "Engenheiro"),
-                new Cargo(3, "Arquiteto"),
-                new Cargo(4, "Gerente de Projetos")
-            };
+            
         }
 
         public void AtualizaCargo(Cargo cargo)

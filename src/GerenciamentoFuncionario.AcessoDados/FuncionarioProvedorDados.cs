@@ -2,35 +2,51 @@
 using GerenciamentoFuncionario.Comuns.ProvedorDados;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace GerenciamentoFuncionario.AcessoDados
 {
     public class FuncionarioProvedorDados : IFuncionarioProvedorDados
     {
-        private List<Funcionario> Funcionarios { get; set; }
+        private readonly Contexto _contexto;
 
         public FuncionarioProvedorDados()
         {
-            Funcionarios = new List<Funcionario> {
-                new Funcionario("Fulano de Tal", 1, false),
-                new Funcionario("Ciclano de Tal", 2, true),
-                new Funcionario("Beltrano de Tal", 3, true)
-            };
+            _contexto = new Contexto();
         }
 
-        public void AtualizaFuncionario(Funcionario funcionario)
+        public void AtualizaFuncionario(Funcionario funcionarioAtualizado)
         {
-            throw new System.NotImplementedException();
+            _contexto.Funcionarios.ForEach(f => 
+            {
+                if(f.Id == funcionarioAtualizado.Id)
+                {
+                    f.NomeCompleto = funcionarioAtualizado.NomeCompleto;
+                    //f.PrimeiroNome = funcionarioAtualizado.PrimeiroNome;
+                    //f.UltimoNome = funcionarioAtualizado.UltimoNome;
+                    //f.CargoId = funcionarioAtualizado.CargoId;
+                    //f.EBebedorCafe = funcionarioAtualizado.EBebedorCafe;
+                }
+            });
+
+        }
+
+        public void ExcluiFuncionarioPorId(int id)
+        {
+            var funcionario = RecuperaFuncionarioPorId(id);
+            ExcluiFuncionario(funcionario);
         }
 
         public void ExcluiFuncionario(Funcionario funcionario)
         {
-            throw new System.NotImplementedException();
+            _contexto.Funcionarios.Remove(funcionario);
         }
 
         public Funcionario RecuperaFuncionarioPorId(int id)
         {
-            throw new System.NotImplementedException();
+            return _contexto.Funcionarios.Find(x => x.Id == id);
+            //return _contexto.Funcionarios.FirstOrDefault(x => x.Id == id);
+            //return _contexto.Funcionarios.Where(x => x.Id == id).FirstOrDefault();
         }
 
         public void SalvaFuncionario(Funcionario funcionario)
@@ -40,7 +56,7 @@ namespace GerenciamentoFuncionario.AcessoDados
 
         public IEnumerable<Funcionario> CarregaFuncionarios()
         {
-            return Funcionarios;
+            return _contexto.Funcionarios;
         }
     }
 }

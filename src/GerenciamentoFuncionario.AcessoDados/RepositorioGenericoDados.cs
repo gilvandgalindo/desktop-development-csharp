@@ -153,7 +153,7 @@ namespace GerenciamentoFuncionario.AcessoDados
             throw new NotImplementedException();
         }
 
-        public virtual async Task<IEnumerable<TEntidade>> Recupera(Expression<Func<TEntidade, bool>> clausulaWhere = null, 
+        public virtual async Task<IEnumerable<TEntidade>> Recupera(Expression<Func<TEntidade, bool>> clausulaWhere = null,
             Func<IQueryable<TEntidade>, IOrderedQueryable<TEntidade>> ordenarPor = null, string propriedadesNavegacao = "",
             bool asNoTracking = false)
         {
@@ -177,13 +177,13 @@ namespace GerenciamentoFuncionario.AcessoDados
 
         }
 
-        public virtual async Task<IEnumerable<TEntidade>> RecuperaTodos(Func<IQueryable<TEntidade>, IOrderedQueryable<TEntidade>> ordenarPor = null, 
+        public virtual async Task<IEnumerable<TEntidade>> RecuperaTodos(Func<IQueryable<TEntidade>, IOrderedQueryable<TEntidade>> ordenarPor = null,
             string propriedadesNavegacao = "", bool asNoTracking = false)
         {
             throw new NotImplementedException();
         }
 
-        public virtual async Task<TEntidade> RecuperaUnico(Func<TEntidade, bool> clausulaWhere, bool asNoTracking = false, 
+        public virtual async Task<TEntidade> RecuperaUnico(Func<TEntidade, bool> clausulaWhere, bool asNoTracking = false,
             params Expression<Func<TEntidade, object>>[] propriedadesNavegacao)
         {
             throw new NotImplementedException();

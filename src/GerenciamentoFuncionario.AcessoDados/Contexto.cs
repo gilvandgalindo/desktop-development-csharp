@@ -1,27 +1,52 @@
-﻿using GerenciamentoFuncionario.Comuns.Modelos;
+﻿using GerenciamentoFuncionario.Comuns.Interfaces.Infra.Json;
+using GerenciamentoFuncionario.Comuns.Modelos;
+using GerenciamentoFuncionario.Infra.Json.Entidades;
 using System.Collections.Generic;
 
 namespace GerenciamentoFuncionario.AcessoDados
 {
     public class Contexto
     {
+        private readonly IFuncionarioJson _funcionarioJson;
+        private readonly ICargoJson _cargoJson;
+        private List<Cargo> _cargos = new List<Cargo>();
+        private List<Funcionario> _funcionarios = new List<Funcionario>();
+
         public Contexto()
         {
-            Cargos = new List<Cargo> {
-                new Cargo(1, "Desenvolvedor"),
-                new Cargo(2, "Engenheiro"),
-                new Cargo(3, "Arquiteto"),
-                new Cargo(4, "Gerente de Projetos")
-            };
-
-            Funcionarios = new List<Funcionario> {
-                new Funcionario(1, "Fulano de Tal", 1, false),
-                new Funcionario(2, "Ciclano de Tal", 2, true),
-                new Funcionario(3, "Beltrano de Tal", 3, true)
-            };
+            _funcionarioJson = new FuncionarioJson();
+            _cargoJson = new CargoJson();
         }
 
-        public List<Cargo> Cargos { get; }
-        public List<Funcionario> Funcionarios { get; }
+        public List<Funcionario> Funcionarios
+        {
+            get
+            {
+                if (_funcionarioJson.RecebeFuncionarios() != null)
+                    _funcionarios = _funcionarioJson.RecebeFuncionarios();
+
+                return _funcionarios;
+            }
+            set
+            {
+                _funcionarioJson.AtribuiFuncionarios(value);
+                _funcionarios = value;
+            }
+        }
+
+        public List<Cargo> Cargos
+        {
+            get
+            {
+                if (_cargoJson.RecebeCargos() != null)
+                    _cargos = _cargoJson.RecebeCargos();
+                return _cargos;
+            }
+            set
+            {
+                _cargoJson.AtribuiCargos(value);
+                _cargos = value;
+            }
+        }
     }
 }

@@ -1,17 +1,24 @@
 ﻿using GerenciamentoFuncionario.Comuns.Interfaces.Infra.Json;
-using System;
+using GerenciamentoFuncionario.Comuns.Modelos;
 using System.Collections.Generic;
-using System.Text;
 
 namespace GerenciamentoFuncionario.Infra.Json.Entidades
 {
-    public class FuncionarioJson
+    public class FuncionarioJson : IFuncionarioJson
     {
-        private readonly ManagmentJson _managmentJson;
+        private readonly ManagmentJson<Funcionario> _managmentJson;
 
-        public FuncionarioJson(IManagmentJson managmentJson)
+        public FuncionarioJson()
         {
-            _managmentJson = new ManagmentJson(@"C:\", "Funcionario");
+            _managmentJson = new ManagmentJson<Funcionario>(@"C:\TestJson\", "Funcionarios");
         }
+
+        public void AtribuiFuncionarios(List<Funcionario> funcionarios)
+        {
+            _managmentJson.WriteJson(funcionarios);
+        }
+
+        public List<Funcionario> RecebeFuncionarios() => _managmentJson.ReadJson();
+
     }
 }

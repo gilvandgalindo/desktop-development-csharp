@@ -1,5 +1,4 @@
-﻿using GerenciamentoFuncionario.Comuns.Modelos;
-using GerenciamentoFuncionario.Comuns.ProvedorDados;
+﻿using GerenciamentoFuncionario.Comuns.ProvedorDados;
 using GerenciamentoFuncionario.ViewModel.Comandos;
 using System;
 

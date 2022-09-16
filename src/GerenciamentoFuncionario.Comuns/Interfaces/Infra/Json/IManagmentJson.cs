@@ -1,12 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.Collections.Generic;
 
 namespace GerenciamentoFuncionario.Comuns.Interfaces.Infra.Json
 {
-    public interface IManagmentJson
+    public interface IManagmentJson<T>
     {
-        string ReadJson();
-        void WriteJson(JObject jObject);
-        void CreateJsonFile();
-        void RemoveJsonFile();
+        List<T> ReadJson();
+        void WriteJson(List<T> list);
     }
 }

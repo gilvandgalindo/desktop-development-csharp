@@ -17,7 +17,9 @@ namespace GerenciamentoFuncionario.AcessoDados
 
         public void AtualizaFuncionario(Funcionario funcionario)
         {
-            _contexto.Funcionarios.ForEach(x =>
+            var listaFuncionariosAtualizada = _contexto.Funcionarios;
+
+            listaFuncionariosAtualizada.ForEach(x =>
             {
                 if (x.Id.Equals(funcionario.Id))
                 {
@@ -25,11 +27,15 @@ namespace GerenciamentoFuncionario.AcessoDados
                     return;
                 }
             });
+
+            _contexto.Funcionarios = listaFuncionariosAtualizada;
         }
 
         public void ExcluiFuncionario(Funcionario funcionario)
         {
-            _contexto.Funcionarios.Remove(funcionario);
+            var listaComFuncionarioExcluido = _contexto.Funcionarios;
+            listaComFuncionarioExcluido.Remove(funcionario);
+            _contexto.Funcionarios = listaComFuncionarioExcluido;
         }
 
         public Funcionario RecuperaFuncionarioPorId(int id)
@@ -39,16 +45,27 @@ namespace GerenciamentoFuncionario.AcessoDados
 
         public void SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
         {
-            var novoFuncionario = new Funcionario(RecuperaUltimoIdFuncionarios(), nomeCompleto, cargoId, eBebedorCafe);
-            _contexto.Funcionarios.Add(novoFuncionario);
+            var listaFuncionarioNovo = _contexto.Funcionarios;
+            var novoFuncionario = new Funcionario(GeradorDeId(), nomeCompleto, cargoId, eBebedorCafe);
+            listaFuncionarioNovo.Add(novoFuncionario);
+            _contexto.Funcionarios = listaFuncionarioNovo;
             Debug.WriteLine($"Funcionário salvo: {novoFuncionario.PrimeiroNome}");
         }
 
         public IEnumerable<Funcionario> CarregaFuncionarios() => _contexto.Funcionarios;
 
-        private int TotalFuncionarios() => CarregaFuncionarios().Count();
+        private int GeradorDeId()
+        {
+            var maiorId = _contexto.Funcionarios.Any() ? _contexto.Funcionarios.Max(x => x.Id) : 0;
+            bool temId;
+            do
+            {
+                maiorId++;
+                temId = _contexto.Funcionarios.Any(x => x.Id.Equals(maiorId));
+                //temId = _contexto.Funcionarios.Any(x => x.Id == maiorId);
+            } while (temId);
 
-        private int RecuperaUltimoIdFuncionarios() => CarregaFuncionarios().Last().Id;
-
+            return maiorId;
+        }
     }
 }

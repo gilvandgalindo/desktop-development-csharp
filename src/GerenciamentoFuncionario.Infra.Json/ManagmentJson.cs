@@ -1,32 +1,41 @@
 ﻿using GerenciamentoFuncionario.Comuns.Interfaces.Infra.Json;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Collections.Generic;
 using System.IO;
 
 namespace GerenciamentoFuncionario.Infra.Json
 {
-    public class ManagmentJson: IManagmentJson
+    public class ManagmentJson<T> : IManagmentJson<T> where T : class
     {
-        public ManagmentJson(string basePath, string fileName) => _jsonFile = @$"{basePath}{fileName}.json";
+        public ManagmentJson(string basePath, string fileName)
+        {
+            _jsonFile = @$"{basePath}{fileName}.json";
+            CreateDirectory(basePath);
+            CreateJsonFile();
+        }
+
+        private void CreateDirectory(string basePath)
+        {
+            if (!Directory.Exists(basePath))
+                Directory.CreateDirectory(basePath);
+        }
 
         private readonly string _jsonFile;
 
-        public string ReadJson() => File.ReadAllText(_jsonFile);
+        public List<T> ReadJson() => JsonConvert.DeserializeObject<List<T>>(File.ReadAllText(_jsonFile));
 
-        public void WriteJson(JObject jObject)
+        public void WriteJson(List<T> list)
         {
-            string output = JsonConvert.SerializeObject(jObject, Formatting.Indented);
+            string output = JsonConvert.SerializeObject(list, Formatting.Indented);
             File.WriteAllText(_jsonFile, output);
         }
 
-        public void CreateJsonFile()
+        private void CreateJsonFile()
         {
-            throw new System.NotImplementedException();
+            if (!File.Exists(_jsonFile)) File.CreateText(_jsonFile);
         }
 
-        public void RemoveJsonFile()
-        {
-            throw new System.NotImplementedException();
-        }
+        private void RemoveJsonFile() => File.Delete(_jsonFile);
+
     }
 }

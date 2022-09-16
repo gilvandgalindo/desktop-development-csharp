@@ -10,23 +10,23 @@ namespace GerenciamentoFuncionario.Console
             var provedorFuncionario = new FuncionarioProvedorDados();
             var provedorCargo = new CargoProvedorDados();
 
-            provedorFuncionario.CarregaFuncionarios();
+            //provedorFuncionario.CarregaFuncionarios();
             ApresentaFuncionarios(provedorFuncionario.CarregaFuncionarios());
 
             //CRIAR FUNCIONARIOS
-            provedorCargo.SalvaCargo("Developer");
-            provedorCargo.SalvaCargo("Engenheiro");
-            provedorCargo.SalvaCargo("Analise");
+            //provedorCargo.SalvaCargo("Developer");
+            //provedorCargo.SalvaCargo("Engenheiro");
+            //provedorCargo.SalvaCargo("Analise");
 
             //CRIAR FUNCIONARIOS
             provedorFuncionario.SalvaFuncionario("Fulano de Tal", provedorCargo.RecuperaCargoPorNome("Developer").Id, false);
             provedorFuncionario.SalvaFuncionario("Ciclano de Tal", provedorCargo.RecuperaCargoPorNome("Engenheiro").Id, true);
             provedorFuncionario.SalvaFuncionario("Beltrano de Tal", provedorCargo.RecuperaCargoPorNome("Analise").Id, true);
 
-            ApresentaFuncionarios(provedorFuncionario.CarregaFuncionarios());
+            //ApresentaFuncionarios(provedorFuncionario.CarregaFuncionarios());
 
             //BUSCA POR ID
-            var funcionarioSelecionado = provedorFuncionario.RecuperaFuncionarioPorId(3);
+            var funcionarioSelecionado = provedorFuncionario.RecuperaFuncionarioPorId(1);
 
             //EXCLUI FUNCIONARIO
             provedorFuncionario.ExcluiFuncionario(funcionarioSelecionado);

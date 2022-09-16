@@ -18,23 +18,15 @@ namespace GerenciamentoFuncionario.AcessoDados
         public void AtualizaFuncionario(Funcionario funcionario)
         {
             var listaFuncionariosAtualizada = _contexto.Funcionarios;
-
-            listaFuncionariosAtualizada.ForEach(x =>
-            {
-                if (x.Id.Equals(funcionario.Id))
-                {
-                    x = funcionario;
-                    return;
-                }
-            });
-
+            listaFuncionariosAtualizada.Remove(listaFuncionariosAtualizada?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
+            listaFuncionariosAtualizada.Add(funcionario);
             _contexto.Funcionarios = listaFuncionariosAtualizada;
         }
 
         public void ExcluiFuncionario(Funcionario funcionario)
         {
             var listaComFuncionarioExcluido = _contexto.Funcionarios;
-            listaComFuncionarioExcluido.Remove(funcionario);
+            listaComFuncionarioExcluido.Remove(listaComFuncionarioExcluido?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
             _contexto.Funcionarios = listaComFuncionarioExcluido;
         }
 

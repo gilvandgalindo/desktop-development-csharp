@@ -31,7 +31,7 @@ namespace GerenciamentoFuncionario.AcessoDados
             _contexto.Cargos = listaCargosAtualizada;
         }
 
-        public IEnumerable<Cargo> CarregaCargos() => _contexto.Cargos;        
+        public IEnumerable<Cargo> CarregaCargos() => _contexto.Cargos;
 
         public void ExcluiCargo(Cargo cargo)
         {

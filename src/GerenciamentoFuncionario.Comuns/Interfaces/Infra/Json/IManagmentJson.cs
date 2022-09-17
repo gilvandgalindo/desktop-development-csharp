@@ -4,7 +4,7 @@ namespace GerenciamentoFuncionario.Comuns.Interfaces.Infra.Json
 {
     public interface IManagmentJson<T>
     {
-        List<T> ReadJson();
-        void WriteJson(List<T> list);
+        List<T> LerBaseJson();
+        void EscreverBaseJson(List<T> list);
     }
 }

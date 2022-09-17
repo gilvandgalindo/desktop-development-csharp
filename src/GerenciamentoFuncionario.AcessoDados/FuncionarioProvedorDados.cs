@@ -10,54 +10,50 @@ namespace GerenciamentoFuncionario.AcessoDados
     {
         private readonly Contexto _contexto;
 
-        public FuncionarioProvedorDados()
-        {
-            _contexto = new Contexto();
-        }
+        public FuncionarioProvedorDados() => _contexto = new Contexto();
 
-        public void AtualizaFuncionario(Funcionario funcionario)
-        {
-            var listaFuncionariosAtualizada = _contexto.Funcionarios;
-            listaFuncionariosAtualizada.Remove(listaFuncionariosAtualizada?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
-            listaFuncionariosAtualizada.Add(funcionario);
-            _contexto.Funcionarios = listaFuncionariosAtualizada;
-        }
-
-        public void ExcluiFuncionario(Funcionario funcionario)
-        {
-            var listaComFuncionarioExcluido = _contexto.Funcionarios;
-            listaComFuncionarioExcluido.Remove(listaComFuncionarioExcluido?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
-            _contexto.Funcionarios = listaComFuncionarioExcluido;
-        }
-
-        public Funcionario RecuperaFuncionarioPorId(int id)
-        {
-            return _contexto.Funcionarios.Find(x => x.Id.Equals(id));
-        }
+        public Funcionario RecuperaFuncionarioPorId(int id) => RecebeListaFuncionariosContexto().Find(x => x.Id.Equals(id));
+        
+        public IEnumerable<Funcionario> CarregaFuncionarios() => RecebeListaFuncionariosContexto();
 
         public void SalvaFuncionario(string nomeCompleto, int cargoId, bool eBebedorCafe)
         {
-            var listaFuncionarioNovo = _contexto.Funcionarios;
+            var listaFuncionarioNovo = RecebeListaFuncionariosContexto();
             var novoFuncionario = new Funcionario(GeradorDeId(), nomeCompleto, cargoId, eBebedorCafe);
             listaFuncionarioNovo.Add(novoFuncionario);
-            _contexto.Funcionarios = listaFuncionarioNovo;
-            Debug.WriteLine($"Funcionário salvo: {novoFuncionario.PrimeiroNome}");
+            AtribuiListaFuncionariosContexto(listaFuncionarioNovo);
         }
-
-        public IEnumerable<Funcionario> CarregaFuncionarios() => _contexto.Funcionarios;
+        
+        public void AtualizaFuncionario(Funcionario funcionario)
+        {
+            var listaFuncionariosAtualizada = RecebeListaFuncionariosContexto();
+            listaFuncionariosAtualizada.Remove(listaFuncionariosAtualizada?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
+            listaFuncionariosAtualizada.Add(funcionario);
+            AtribuiListaFuncionariosContexto(listaFuncionariosAtualizada);
+        }        
+        
+        public void ExcluiFuncionario(Funcionario funcionario)
+        {
+            var listaComFuncionarioExcluido = RecebeListaFuncionariosContexto();
+            listaComFuncionarioExcluido.Remove(listaComFuncionarioExcluido?.FirstOrDefault(x => x.Id.Equals(funcionario?.Id)));
+            AtribuiListaFuncionariosContexto(listaComFuncionarioExcluido);
+        }
 
         private int GeradorDeId()
         {
-            var maiorId = _contexto.Funcionarios.Any() ? _contexto.Funcionarios.Max(x => x.Id) : 0;
+            var maiorId = RecebeListaFuncionariosContexto().Any() ? RecebeListaFuncionariosContexto().Max(x => x.Id) : 0;
             bool temId;
             do
             {
                 maiorId++;
-                temId = _contexto.Funcionarios.Any(x => x.Id.Equals(maiorId));
-                //temId = _contexto.Funcionarios.Any(x => x.Id == maiorId);
+                temId = RecebeListaFuncionariosContexto().Any(x => x.Id.Equals(maiorId));
             } while (temId);
 
             return maiorId;
         }
+
+        private void AtribuiListaFuncionariosContexto(List<Funcionario> listaFuncionarios) => _contexto.Funcionarios = listaFuncionarios;
+
+        private List<Funcionario> RecebeListaFuncionariosContexto() => _contexto.Funcionarios;
     }
 }

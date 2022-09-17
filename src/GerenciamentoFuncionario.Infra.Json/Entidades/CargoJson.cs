@@ -6,16 +6,16 @@ namespace GerenciamentoFuncionario.Infra.Json.Entidades
 {
     public class CargoJson : ICargoJson
     {
-        private readonly ManagmentJson<Cargo> _managmentJson;
+        private readonly GerenciarJson<Cargo> _managmentJson;
 
         public CargoJson()
         {
-            _managmentJson = new ManagmentJson<Cargo>(@"C:\TestJson\", "Cargos");
+            _managmentJson = new GerenciarJson<Cargo>(@"C:\TestJson\", "Cargos");
         }
 
-        public void AtribuiCargos(List<Cargo> cargos) => _managmentJson.WriteJson(cargos);
+        public void AtribuiCargos(List<Cargo> cargos) => _managmentJson.EscreverBaseJson(cargos);
 
-        public List<Cargo> RecebeCargos() => _managmentJson.ReadJson();
+        public List<Cargo> RecebeCargos() => _managmentJson.LerBaseJson();
 
     }
 }

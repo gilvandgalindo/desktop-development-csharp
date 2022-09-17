@@ -7,11 +7,11 @@ namespace GerenciamentoFuncionario.Infra.Json.Entidades
 {
     public class FuncionarioJson : IFuncionarioJson
     {
-        private readonly ManagmentJson<FuncionarioOverride> _managmentJson;
+        private readonly GerenciarJson<FuncionarioOverride> _managmentJson;
 
         public FuncionarioJson()
         {
-            _managmentJson = new ManagmentJson<FuncionarioOverride>(@"C:\TestJson\", "Funcionarios");
+            _managmentJson = new GerenciarJson<FuncionarioOverride>(@"C:\TestJson\", "Funcionarios");
         }
 
         public void AtribuiFuncionarios(List<Funcionario> funcionarios)
@@ -26,13 +26,13 @@ namespace GerenciamentoFuncionario.Infra.Json.Entidades
                     EBebedorCafe = x.EBebedorCafe,
                     NomeCompleto = x.NomeCompleto
                 }));
-            _managmentJson.WriteJson(funcionariosOverride);
+            _managmentJson.EscreverBaseJson(funcionariosOverride);
         }
 
         public List<Funcionario> RecebeFuncionarios()
         {
             var funcionarios = new List<Funcionario>();
-            _managmentJson.ReadJson()?.ForEach(x => funcionarios.Add(x));
+            _managmentJson.LerBaseJson()?.ForEach(x => funcionarios.Add(x));
             return funcionarios;
         }
 
